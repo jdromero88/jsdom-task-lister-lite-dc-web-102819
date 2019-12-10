@@ -21,21 +21,57 @@ function addToList(description) {
   removeLi.innerText = "X"
   removeLi.dataset.description = description.split(" ").join("");
   removeLi.addEventListener("click", deleteLi)
+  let editLi = document.createElement('button')
+  editLi.innerText = "Edit";
+  editLi.dataset.description = description.split(" ").join("");
+  editLi.addEventListener("click", editItem)
   li.appendChild(removeLi)
+  li.appendChild(editLi)
   let ulEl = document.querySelector('#tasks')
   ulEl.appendChild(li)
 }
 
 function deleteLi(event){
   // get element by description
-  y = event.currentTarget.dataset.description
-  x = document.querySelectorAll(`[data-description ~= ${y}]`)
+  let y = event.currentTarget.dataset.description
+  let x = document.querySelectorAll(`[data-description ~= ${y}]`)
   x[0].remove();
   // console.log(x);
-
-  // destroy element
-  // x.remove();
-  // celebrate
-  // don't reload page
-
 }
+
+function editItem(event){
+  let y = event.currentTarget.dataset.description;
+  let x = document.querySelectorAll(`[data-description ~= ${y}]`);
+  let prevText = x[0].innerText.slice(0, -6);
+
+  let editForm = document.createElement('form');
+
+  let editField = document.createElement('input');
+  editField.type = "text";
+  editField.value = prevText;
+  editField.id = "edit"
+  editForm.appendChild(editField);
+
+  let editSubmit = document.createElement('button');
+  editSubmit.innerText = "Submit"
+  editForm.appendChild(editSubmit);
+
+  editForm.addEventListener('submit', submitNewText);
+
+  x[0].parentNode.replaceChild(editForm, x[0]);
+}
+
+function submitNewText(event) {
+  event.preventDefault();
+  let form = event.currentTarget
+  let y = document.getElementById('edit').value;
+  addToList(y);
+  debugger
+  form.remove();
+  event.target.reset()
+}
+
+// event.preventDefault()
+// let description = document.getElementById('new-task-description').value
+// addToList(description)
+// event.target.reset()
