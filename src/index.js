@@ -70,8 +70,3 @@ function submitNewText(event) {
   form.remove();
   event.target.reset()
 }
-
-// event.preventDefault()
-// let description = document.getElementById('new-task-description').value
-// addToList(description)
-// event.target.reset()
