@@ -9,7 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
 function submitForm(event) {
   event.preventDefault()
   let description = document.getElementById('new-task-description').value
-  addToList(description)
+
+  if (anythingThere(description)) {
+      addToList(description)
+} else {
+      alert('Uh... I think you forgot to add a task. Please try again.');
+}
   event.target.reset()
 }
 
@@ -64,9 +69,22 @@ function editItem(event){
 function submitNewText(event) {
   event.preventDefault();
   let form = event.currentTarget
-  let y = document.getElementById('edit').value;
-  addToList(y);
-  debugger
-  form.remove();
+  let description = document.getElementById('edit').value;
+
+  if (anythingThere(description)) {
+      addToList(description)
+      form.remove();
+} else {
+      alert('Uh... I think you forgot to add a task. Please try again.');
+}
+
   event.target.reset()
+}
+
+function anythingThere(string) {
+  if (string === "") {
+    return false
+  } else {
+    return true
+  }
 }
