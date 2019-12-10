@@ -1,5 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   // your code here
+
+
+  let r = (Math.floor(Math.random() * 256))
+  let g = (Math.floor(Math.random() * 256))
+  let b = (Math.floor(Math.random() * 256))
+  updateColor = `rgb(${r}, ${g}, ${b})`
+
+  body = document.getElementsByTagName('body')
+  body[0].style.background=  ( updateColor, updateColor);
+
+
   console.log('do something MF');
   const formEl = document.getElementById('create-task-form')
   formEl.addEventListener('submit', submitForm)
